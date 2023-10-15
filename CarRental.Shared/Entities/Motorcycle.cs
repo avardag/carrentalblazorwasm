@@ -4,12 +4,15 @@ namespace CarRental.Shared.Entities;
 
 public class Motorcycle:Vehicle
 {
+    public int EngineSize { get; set; }
+    
     public Motorcycle(
-        string registrationNumber, string make, string model,
+        int id, string registrationNumber, string make, string model,
         double odometer, decimal costPerDay, decimal costPerKm, 
-        VehicleType vehicleType, 
+        VehicleType vehicleType, int engineSize,
         VehicleAvailabilityStatus availabilityStatus)
-        : base(registrationNumber, make, model, odometer, costPerDay, costPerKm, vehicleType, availabilityStatus)
+        : base(id, registrationNumber, make, model, odometer, costPerDay, costPerKm, vehicleType, availabilityStatus)
     {
+        EngineSize = engineSize;
     }
 }

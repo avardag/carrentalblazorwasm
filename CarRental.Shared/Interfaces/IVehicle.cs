@@ -2,7 +2,7 @@ using CarRental.Shared.Enums;
 
 namespace CarRental.Shared.Interfaces;
 
-public class IVehicle
+public interface IVehicle
 {
     int Id { get; }
     string RegistrationNumber { get; set; }
@@ -12,5 +12,7 @@ public class IVehicle
     decimal CostPerDay { get; set; }
     decimal CostPerKm { get; set; }
     VehicleType VehicleType { get; set; }
-    VehicleAvailabilityStatus VehicleStatus { get; set; }
+    VehicleAvailabilityStatus AvailabilityStatus { get; set; }
+    void Rent();
+    void Return(int kmDriven);
 }
