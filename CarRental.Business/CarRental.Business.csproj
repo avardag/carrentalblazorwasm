@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CarRental.Data\CarRental.Data.csproj" />
+      <ProjectReference Include="..\CarRental.Shared\CarRental.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
