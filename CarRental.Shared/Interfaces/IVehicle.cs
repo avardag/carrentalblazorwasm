@@ -8,7 +8,7 @@ public interface IVehicle
     string RegistrationNumber { get; set; }
     string Make { get; set; }
     string Model { get; set; }
-    double Odometer { get; set; }
+    int Odometer { get; set; }
     decimal CostPerDay { get; set; }
     decimal CostPerKm { get; set; }
     VehicleType VehicleType { get; set; }

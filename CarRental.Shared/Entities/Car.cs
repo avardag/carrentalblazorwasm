@@ -10,15 +10,16 @@ public class Car: Vehicle
     public bool? HasRearViewCamera { get; set; }
     public bool? HasParkAssist { get; set; }
     
-    public Car(
-        int id, string registrationNumber, string make, string model,
-        double odometer, decimal costPerDay, decimal costPerKm,
-        VehicleType vehicleType, int numberOfSeats, int numberOfDoors,
-        VehicleAvailabilityStatus availabilityStatus, TransmissionType transmission)
-        : base(id, registrationNumber, make, model, odometer, costPerDay, costPerKm, vehicleType, availabilityStatus)
-    {
-        NumberOfSeats = numberOfSeats;
-        NumberOfDoors = numberOfDoors;
-        TransmissionType = transmission;
-    }
+    //not needed when using object initilizer syntax
+    // public Car(
+    //     int id, string registrationNumber, string make, string model,
+    //     double odometer, decimal costPerDay, decimal costPerKm,
+    //     VehicleType vehicleType, int numberOfSeats, int numberOfDoors,
+    //     VehicleAvailabilityStatus availabilityStatus, TransmissionType transmission)
+    //     : base(id, registrationNumber, make, model, odometer, costPerDay, costPerKm, vehicleType, availabilityStatus)
+    // {
+    //     NumberOfSeats = numberOfSeats;
+    //     NumberOfDoors = numberOfDoors;
+    //     TransmissionType = transmission;
+    // }
 }

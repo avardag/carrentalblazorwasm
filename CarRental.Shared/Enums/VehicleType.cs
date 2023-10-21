@@ -9,5 +9,6 @@ public enum VehicleType
     Van,
     Truck,
     Bus,
+    Motorcycle,
     Other
 }

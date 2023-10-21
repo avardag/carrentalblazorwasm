@@ -1,9 +1,71 @@
 ﻿@page "/"
+@using CarRental.Shared.Entities
+@using CarRental.Data
+@using CarRental.Shared.Interfaces
+@inject IMockDataService Data
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
+@if (_customers is null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
+    <div>
+        <h1>Customers</h1>
+        @foreach (var c in _customers)
+        {
+            <p>@c.FirstName</p>
+        }
+    </div>
+}
+@if (_bookings is null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
+    <div>
+        <h1>Bookings</h1>
+        @foreach (var b in _bookings)
+        {
+            <p>@b.Id</p>
+        }
+    </div>
+}
+@if (_vehicles is null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
+    <div>
+        <h1>Vehicles</h1>
+        @foreach (var v in _vehicles)
+        {
+            <p>@v.Id</p>
+        }
+    </div>
+}
 
 Welcome to your new app.
 
 
+@code{
+    private List<Customer>  _customers { get; set; }
+    private List<Booking>  _bookings { get; set; }
+    private List<Vehicle> _vehicles { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var allCustomers = Data.Get<Customer>(null);
+        _customers = allCustomers;
+        var allBookings = Data.Get<Booking>(null);
+        _bookings = allBookings;
+        var allVehicles = Data.Get<Vehicle>(null);
+        _vehicles = allVehicles;
+    }
+
+}

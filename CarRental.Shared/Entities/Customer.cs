@@ -10,11 +10,4 @@ public class Customer:IPerson
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
     
-    public Customer(string firstName, string lastName, DateTime dateOfBirth, string ssn)
-    {
-        FirstName = firstName;
-        LastName = lastName;
-        DateOfBirth = dateOfBirth;
-        SocialSecurityNumber = ssn;
-    }
 }
