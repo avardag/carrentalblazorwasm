@@ -153,7 +153,7 @@ public class MockDataService : IMockDataService
     
     private List<T> GetList<T>()
     {
-        // Use reflection to get the type name of T
+        // reflection to get the type name of T
         var typeName = typeof(T).Name;
 
         if (typeName == nameof(Booking))
@@ -177,20 +177,15 @@ public class MockDataService : IMockDataService
     public List<T> Get<T>(Expression<Func<T, bool>>? predicate)
     {
         var list = GetList<T>();
-    
         // If the predicate is null, return the whole list
-        if (predicate == null)
-        {
-            return list;
-        }
-    
+        if (predicate == null) return list;
+        
         return list.Where(predicate.Compile()).ToList();
     }
 
     // public List<T> Get<T>(Expression<Func<T, bool>>? predicate = null)
     // {
     //    
-    //     // Check the type of T and return the corresponding list filtered by the expression if given
     //     // if (typeof(T).Name == nameof(Booking))
     //     if (typeof(T) == typeof(Booking))
     //     {
@@ -219,7 +214,6 @@ public class MockDataService : IMockDataService
     //     }
     //     else
     //     {
-    //         // Throw an exception if the type is not supported
     //         throw new ArgumentException("The type is not supported.");
     //     }
     // }
@@ -227,7 +221,7 @@ public class MockDataService : IMockDataService
    
     public T? Single<T>(Expression<Func<T, bool>>? expression = null)
     {
-        return Get<T>(expression).SingleOrDefault();
+        return Get<T>(null).SingleOrDefault(expression?.Compile());
         // return Get<T>().SingleOrDefault(expression);
         //or use GetList<>
         // then  do list.SingleOrDefault(predicate.Compile());
@@ -253,13 +247,15 @@ public class MockDataService : IMockDataService
         }
         else if (typeof(T) == typeof(Customer))
         {
-            _customers.Add(item as Customer);
-            NextPersonId++;
+            Customer customer = item as Customer;
+            customer.Id = NextPersonId++;
+            _customers.Add(customer);
         }
         else if (typeof(T) == typeof(Vehicle))
         {
-            _vehicles.Add(item as Vehicle);
-            NextVehicleId++;
+            Vehicle vehicle = item as Vehicle;
+            vehicle.Id = NextVehicleId++;
+            _vehicles.Add(vehicle);
         }
         else
         {
@@ -276,7 +272,7 @@ public class MockDataService : IMockDataService
         // Check if the vehicle is available
         if (vehicle != null && vehicle.AvailabilityStatus == VehicleAvailabilityStatus.Available)
         {
-            // Create a new booking with the current date as the pickup date and a default return date of one week later
+            //new booking with the current date as the pickup date and a default return date of one week later
             var booking = new Booking(DateTime.Now, DateTime.Now.AddDays(7), vehicleId, customerId);
 
             // Add the booking to the list
@@ -314,12 +310,11 @@ public class MockDataService : IMockDataService
              {
                  booking.ReturnDate = DateTime.Now;
                  int kmDriven = odometerReading - vehicle.Odometer;
-                 // Calculate the total cost of the booking based on the vehicle's cost per day and cost per km
+                 //total cost of the booking based on the vehicle's cost per day and cost per km
                  booking.CalculateTotalCost(vehicle, kmDriven);
 
                  vehicle.Return(odometerReading);
 
-                 // Return the booking
                  return booking;
                  
              }

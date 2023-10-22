@@ -9,16 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5199c2a6-0ae3-4e46-9916-b04f429b7da8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CarRental.Business/BookingProcessor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarRental/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarRental/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Booking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Booking.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Car.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Car.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Customer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Motorcycle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Motorcycle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Vehicle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Vehicle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Enums/VehicleType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Enums/VehicleType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IBooking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IBooking.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IVehicle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IVehicle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/Index.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/Index.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Data/IMockDataService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Data/IMockDataService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +96,7 @@
       <workItem from="1697394788171" duration="5496000" />
       <workItem from="1697400470181" duration="1019000" />
       <workItem from="1697530584541" duration="6373000" />
-      <workItem from="1697704556173" duration="16753000" />
+      <workItem from="1697704556173" duration="23907000" />
     </task>
     <servers />
   </component>
