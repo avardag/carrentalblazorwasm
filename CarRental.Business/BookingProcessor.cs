@@ -49,7 +49,7 @@ public class BookingProcessor
     }
 
     public void AddVehicle(string registrationNumber, string make, string model, int
-        odometer, decimal costKm, decimal costDay, VehicleAvailabilityStatus status, VehicleType type)
+        odometer, decimal costKm, decimal costDay, VehicleType type)
     {
             _db.Add<Vehicle>(new Vehicle
             {
@@ -59,22 +59,15 @@ public class BookingProcessor
                 Odometer = odometer,
                 CostPerDay = costDay,
                 CostPerKm = costKm,
-                AvailabilityStatus = status,
+                AvailabilityStatus = VehicleAvailabilityStatus.Available,
                 VehicleType = type
             }); 
         
     }
 
-    public void AddCustomer(string socialSecurityNumber, string firstName, string
-        lastName, DateTime dateOfBirth)
+    public void AddCustomer(Customer newCustomer)
     {
-            _db.Add<Customer>(new Customer
-            {
-                SocialSecurityNumber = socialSecurityNumber,
-                FirstName = firstName,
-                LastName = lastName,
-                DateOfBirth = dateOfBirth
-            });
+            _db.Add<Customer>(newCustomer);
     }
     // Calling Default Interface Methods
     public string[] VehicleStatusNames => _db.VehicleStatusNames;

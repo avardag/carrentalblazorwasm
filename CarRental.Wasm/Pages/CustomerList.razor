@@ -1,0 +1,79 @@
+@page "/customer"
+@using CarRental.Shared.Entities
+@using MudBlazor.Extensions
+@using CarRental.Business
+@inject BookingProcessor BProc
+
+<PageTitle>Customers</PageTitle>
+<div class="d-flex justify-center mb-5">
+   <EditForm Model="_customer" OnValidSubmit="HandleValidSubmit">
+   <DataAnnotationsValidator/>
+           <MudCard Style="max-width: 600px;">
+               <MudCardContent>
+                   <MudGrid>
+                       <MudItem xs="12" sm="6" lg="3">
+                           <MudTextField Label="First name" HelperText="At least 2 chars"
+                                         @bind-Value="_customer.FirstName" For="@(() => _customer.FirstName)"/>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" lg="3">
+                           <MudTextField Label="Last name" HelperText="At least 2 chars"
+                                         @bind-Value="_customer.LastName" For="@(() => _customer.LastName)"/>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" lg="3">
+                          <MudTextField Label="SSN" HelperText="8 to 12 characters"
+                                        @bind-Value="_customer.SocialSecurityNumber" For="@(() => _customer.SocialSecurityNumber)"/>
+                      </MudItem>
+                       <MudItem xs="12" sm="6" lg="3">
+                           <MudDatePicker Label="Date of Birth" HelperText="mm/dd/yyyy" Editable="true" @bind-Date="_customer.DateOfBirth" Placeholder="Select Date"/>
+                       </MudItem>
+                   </MudGrid>
+               </MudCardContent>
+               <MudCardActions>
+                   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add</MudButton>
+               </MudCardActions>
+           </MudCard>
+           
+           <MudText Color="@Color.Error">
+               <ValidationSummary />
+           </MudText>
+   </EditForm> 
+</div>
+
+
+
+<MudTable Items="@Customers" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@(Customers == null)" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>SSN</MudTh>
+        <MudTh>First Name</MudTh>
+        <MudTh>Last Name</MudTh>
+        <MudTh>Date of Birth</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="SSN">@context.SocialSecurityNumber</MudTd>
+        <MudTd DataLabel="Name">@context.FirstName</MudTd>
+        <MudTd DataLabel="Last Name">@context.LastName</MudTd>
+        <MudTd DataLabel="Date Of birth" HideSmall="@true">@context.DateOfBirth.ToIsoDateString()</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code{
+    private IEnumerable<Customer>? Customers { get; set; }
+    private Customer _customer = new Customer();
+    bool _success;
+
+    protected override void OnInitialized()
+    {
+        Customers = BProc.GetCustomers();
+    }
+
+    private void HandleValidSubmit(EditContext context)
+    {
+        _success = true;
+        BProc.AddCustomer(_customer);
+        Customers = BProc.GetCustomers();
+        _customer = new Customer();//resets the form
+        StateHasChanged();
+    }
+}

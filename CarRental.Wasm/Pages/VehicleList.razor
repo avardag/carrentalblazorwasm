@@ -1,0 +1,102 @@
+@page "/vehicle"
+@using CarRental.Shared.Entities
+@using MudBlazor.Extensions
+@using CarRental.Business
+@using CarRental.Shared.Enums
+@using CarRental.Shared.Interfaces
+@inject BookingProcessor BProc
+
+<PageTitle>Vehicles</PageTitle>
+<div class="d-flex justify-center mb-5">
+   <EditForm Model="_vehicle" OnValidSubmit="HandleValidSubmit">
+   <DataAnnotationsValidator/>
+           <MudCard class="px-16">
+               <MudCardContent>
+                   <MudGrid>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudTextField Label="Registration Number" HelperText="Max 8 chars"
+                                         @bind-Value="_vehicle.RegistrationNumber" For="@(() => _vehicle.RegistrationNumber)"/>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudTextField Label="Make" HelperText="At least 2 chars"
+                                         @bind-Value="_vehicle.Make" For="@(() => _vehicle.Make)"/>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                          <MudTextField Label="Model" HelperText="2 to 24 characters"
+                                        @bind-Value="_vehicle.Model" For="@(() => _vehicle.Model)"/>
+                      </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudNumericField @bind-Value="_vehicle.Odometer" Label="Odometer" Variant="Variant.Text" Min="0" Max="1000000" For="@(() => _vehicle.Odometer)" />
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudNumericField @bind-Value="_vehicle.CostPerDay" Label="Cost per day" Variant="Variant.Text" Min="0" Max="3000" For="@(() => _vehicle.CostPerDay)" />
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudNumericField @bind-Value="_vehicle.CostPerKm" Label="Cost per km" Variant="Variant.Text" Min="0" Max="300" For="@(() => _vehicle.CostPerKm)" />
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           @* <MudSelect bind-Value="_vehicleType" Required T="string" Label="Vehicle Type" HelperText="Select one" AnchorOrigin="Origin.BottomCenter">
+                               @foreach (var type in BProc.VehicleTypeNames)
+                               {
+                                   <MudSelectItem Value="@type" />
+                               }
+                           </MudSelect> *@
+                           <MudSelect @bind-Value="_vehicleType" Label="Select vehicle" HelperText="Type" AdornmentColor="Color.Primary" AnchorOrigin="Origin.BottomCenter" For="@(() => _vehicle.VehicleType)">
+                                @foreach (VehicleType vType in Enum.GetValues(typeof(VehicleType)))
+                                {
+                                    <MudSelectItem Value="@vType">@vType</MudSelectItem>
+                                }
+                            </MudSelect>
+                       </MudItem>
+                   </MudGrid>
+               </MudCardContent>
+               <MudCardActions>
+                   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add</MudButton>
+               </MudCardActions>
+           </MudCard>
+
+           <MudText Color="@Color.Error">
+               <ValidationSummary />
+           </MudText>
+   </EditForm>
+</div>
+
+<MudTable Items="@Vehicles" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@(Vehicles == null)" LoadingProgressColor="Color.Info">
+    <HeaderContent >
+        <MudTh>REgNo</MudTh>
+        <MudTh>Make</MudTh>
+        <MudTh>Model</MudTh>
+        <MudTh>Odometer</MudTh>
+        <MudTh>Type</MudTh>
+        <MudTh>Status</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.RegistrationNumber</MudTd>
+        <MudTd DataLabel="Make">@context.Make</MudTd>
+        <MudTd DataLabel="Model">@context.Model</MudTd>
+        <MudTd DataLabel="Odometer" HideSmall="@true">@context.Odometer</MudTd>
+        <MudTd DataLabel="Type">@context.VehicleType</MudTd>
+        <MudTd DataLabel="Status" ><MudChip Variant="Variant.Filled" Color=@(context.AvailabilityStatus == VehicleAvailabilityStatus.Rented ? Color.Warning : Color.Default)>
+            @context.AvailabilityStatus
+        </MudChip> </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code{
+    private IEnumerable<IVehicle>? Vehicles { get; set; }
+    private IVehicle _vehicle = new Car();
+    private VehicleType _vehicleType { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Vehicles = BProc.GetVehicles();
+    }
+
+    private void HandleValidSubmit(EditContext context)
+    {
+        BProc.AddVehicle(_vehicle.RegistrationNumber, _vehicle.Make, _vehicle.Model, _vehicle.Odometer, _vehicle.CostPerKm, _vehicle.CostPerDay, _vehicleType);
+        Vehicles = BProc.GetVehicles();
+        _vehicle = new Car();//resets the form
+        StateHasChanged();
+    }
+}

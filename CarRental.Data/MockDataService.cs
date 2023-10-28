@@ -145,6 +145,9 @@ public class MockDataService : IMockDataService
         // // Add some bookings
         // _bookings.Add(RentVehicle(_vehicles[0].Id, _customers[0].Id));
         // _bookings.Add(RentVehicle(_vehicles[1].Id, _customers[2].Id));
+        //update next Ids
+        NextVehicleId = _vehicles.Max(v => v.Id) + 1;
+        NextPersonId = _customers.Max(c => c.Id) + 1;
         RentVehicle(_vehicles[0].Id, _customers[0].Id);
         RentVehicle(_vehicles[1].Id, _customers[2].Id);
         RentVehicle(_vehicles[4].Id, _customers[1].Id);
@@ -221,7 +224,7 @@ public class MockDataService : IMockDataService
    
     public T? Single<T>(Expression<Func<T, bool>>? expression = null)
     {
-        return Get<T>(null).SingleOrDefault(expression?.Compile());
+        return  Get<T>(null).SingleOrDefault(expression?.Compile());
         // return Get<T>().SingleOrDefault(expression);
         //or use GetList<>
         // then  do list.SingleOrDefault(predicate.Compile());
@@ -259,7 +262,6 @@ public class MockDataService : IMockDataService
         }
         else
         {
-            // Throw an exception if the type is not supported
             throw new ArgumentException("The type is not supported.");
         }
     }
