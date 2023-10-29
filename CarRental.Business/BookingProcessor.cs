@@ -43,9 +43,10 @@ public class BookingProcessor
         _db.RentVehicle(vehicleId, customerId);
     }
 
-    public IBooking ReturnVehicle(int vehicleId, int newOdometerReading)
+    public async Task<IBooking> ReturnVehicle(int vehicleId, int newOdometerReading)
     {
-            return _db.ReturnVehicle(vehicleId, newOdometerReading); 
+            var booking = await _db.ReturnVehicle(vehicleId, newOdometerReading); 
+            return booking;
     }
 
     public void AddVehicle(string registrationNumber, string make, string model, int

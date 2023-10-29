@@ -151,7 +151,6 @@ public class MockDataService : IMockDataService
         RentVehicle(_vehicles[0].Id, _customers[0].Id);
         RentVehicle(_vehicles[1].Id, _customers[2].Id);
         RentVehicle(_vehicles[4].Id, _customers[1].Id);
-        
     }
     
     private List<T> GetList<T>()
@@ -302,7 +301,7 @@ public class MockDataService : IMockDataService
         }
     }
 
-    public IBooking ReturnVehicle(int vehicleId, int odometerReading)
+    public async Task<IBooking>  ReturnVehicle(int vehicleId, int odometerReading)
     {
          // Find the booking by vehicle id
          var booking = _bookings.Find(b => b.VehicleId == vehicleId);
@@ -322,9 +321,8 @@ public class MockDataService : IMockDataService
                  booking.CalculateTotalCost(vehicle, kmDriven);
 
                  vehicle.Return(odometerReading);
-
+                 await Task.Delay(1500);
                  return booking;
-                 
              }
              else
              {

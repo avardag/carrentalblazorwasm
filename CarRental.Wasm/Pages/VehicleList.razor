@@ -82,13 +82,13 @@
         <MudTd DataLabel="Status">
             @if (context.AvailabilityStatus is VehicleAvailabilityStatus.Rented or VehicleAvailabilityStatus.Reserved)
             {
-                <MudButton Variant="Variant.Filled"  Color="Color.Error" >
+                <MudButton Variant="Variant.Filled"  Color="Color.Error" OnClick="@(() => OpenReturnDialog(context))">
                     @context.AvailabilityStatus
                 </MudButton>
             }
             else
             {
-                <MudButton Variant="Variant.Filled"  Color="Color.Success" OnClick="@(() => AddBooking(context))">
+                <MudButton Variant="Variant.Filled"  Color="Color.Success" OnClick="@(() => OpenBookingDialog(context))">
                     @context.AvailabilityStatus
                 </MudButton>  
             }
@@ -114,7 +114,7 @@
         _vehicle = new Car();//resets the form
         StateHasChanged();
     }
-    async Task AddBooking(IVehicle vehicle)
+    async Task OpenBookingDialog(IVehicle vehicle)
     {
         var parameters = new DialogParameters<BookingDialog> { { x => x.Vehicle, vehicle } };
         var options = new DialogOptions() { CloseButton = false, MaxWidth = MaxWidth.Medium };
@@ -128,6 +128,19 @@
     //In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
             // Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
             // Servers.RemoveAll(item => item.Id == deletedServer);
+        }
+    }
+    async Task OpenReturnDialog(IVehicle vehicle)
+    {
+        var parameters = new DialogParameters<ReturnVehicleDialog> { { x => x.Vehicle, vehicle } };
+        var dialog = await DialogService.ShowAsync<ReturnVehicleDialog>("Rent a vehicle", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+    //In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
+    // Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
+    // Servers.RemoveAll(item => item.Id == deletedServer);
         }
     }
 }

@@ -1,0 +1,49 @@
+@using CarRental.Shared.Interfaces
+@using CarRental.Shared.Entities
+@using CarRental.Business
+@inject ISnackbar Snackbar
+@inject BookingProcessor BProc
+
+<MudDialog Style="width: 500px">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Return @Vehicle.Make @Vehicle.Model ?
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField Value="@Vehicle.RegistrationNumber" Label="Reg No" ReadOnly="true"/>
+        <MudDivider/>
+        <MudNumericField T="int" @bind-Value="odometerReading" Label="Odometer Reading" Placeholder="Enter new odometer reading" Variant="Variant.Outlined" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Disabled="@_loading">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="HandleReturnSubmit" Disabled="@_loading">Return</MudButton>
+    </DialogActions>
+    
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public IVehicle Vehicle { get; set; } = new Vehicle();
+
+    private int odometerReading  { get; set; }
+    private bool _loading = false;
+    
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task HandleReturnSubmit()
+    {
+        _loading = true;
+        await BProc.ReturnVehicle(Vehicle.Id, odometerReading);
+        _loading = false;
+        Snackbar.Add($"{Vehicle.Make } {Vehicle.Model} successfully returned", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Vehicle.Id));
+    }
+}
