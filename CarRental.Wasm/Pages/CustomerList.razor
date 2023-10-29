@@ -3,6 +3,7 @@
 @using MudBlazor.Extensions
 @using CarRental.Business
 @inject BookingProcessor BProc
+@inject ISnackbar Snackbar
 
 <PageTitle>Customers</PageTitle>
 <div class="d-flex justify-center mb-5">
@@ -72,6 +73,7 @@
     {
         _success = true;
         BProc.AddCustomer(_customer);
+        Snackbar.Add("New custommer added", Severity.Success);
         Customers = BProc.GetCustomers();
         _customer = new Customer();//resets the form
         StateHasChanged();

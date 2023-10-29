@@ -10,7 +10,7 @@ public interface IBooking
     DateTime ReturnDate { get; set; }
     int VehicleId { get; }
     int CustomerId { get; }
-    decimal TotalCost { get; }
+    decimal? TotalCost { get; }
 
-    void CalculateTotalCost(Vehicle vehicle, int mDriver);
+    void CalculateTotalCost(Vehicle vehicle, int kmDriven);
 }

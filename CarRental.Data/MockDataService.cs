@@ -275,7 +275,14 @@ public class MockDataService : IMockDataService
         if (vehicle != null && vehicle.AvailabilityStatus == VehicleAvailabilityStatus.Available)
         {
             //new booking with the current date as the pickup date and a default return date of one week later
-            var booking = new Booking(DateTime.Now, DateTime.Now.AddDays(7), vehicleId, customerId);
+            var booking = new Booking
+            {
+                BookingDate= DateTime.Now,
+                PickupDate = DateTime.Now,
+                ReturnDate = DateTime.Now.AddDays(7),
+                VehicleId = vehicleId,
+                CustomerId = customerId
+            };
 
             // Add the booking to the list
             Add(booking);
@@ -293,7 +300,6 @@ public class MockDataService : IMockDataService
             return null;
             
         }
-        
     }
 
     public IBooking ReturnVehicle(int vehicleId, int odometerReading)
@@ -324,7 +330,6 @@ public class MockDataService : IMockDataService
              {
                  // Return null if the vehicle does not exist or is not rented
                  return null;
-                 
              }
          }
          else
@@ -332,7 +337,5 @@ public class MockDataService : IMockDataService
              // Return null if the booking does not exist
              return null;
          }
-         
     }
-
 }

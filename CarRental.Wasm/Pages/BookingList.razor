@@ -1,0 +1,50 @@
+@page "/booking"
+@using CarRental.Shared.Entities
+@using MudBlazor.Extensions
+@using CarRental.Business
+@using CarRental.Shared.Interfaces
+@inject BookingProcessor BProc
+
+<PageTitle>Bookings</PageTitle>
+
+<MudTable Items="@Bookings" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@(Bookings == null)" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Booking Date</MudTh>
+        <MudTh>Customer</MudTh>
+        <MudTh>Vehicle Id</MudTh>
+        <MudTh>Cost</MudTh>
+        <MudTh>Status</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="SSN">@context.BookingDate</MudTd>
+        <MudTd DataLabel="Name">@context.CustomerId</MudTd>
+        <MudTd DataLabel="Last Name">@context.VehicleId</MudTd>
+        <MudTd DataLabel="Date Of birth" HideSmall="@true">@(context.TotalCost is null ? context.TotalCost : "N/A")</MudTd>
+        <MudTd DataLabel="Date Of birth" HideSmall="@true">
+            @if (context.TotalCost is null)
+            {
+                <MudChip Variant="Variant.Filled" Color=@(context.TotalCost is null? Color.Warning : Color.Default)>
+                    Open
+                </MudChip>
+            }
+            else
+            {
+                <MudChip Variant="Variant.Filled" Color=@(context.TotalCost is null? Color.Warning : Color.Default)>
+                    Closed
+                </MudChip>
+            }
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code{
+    private IEnumerable<IBooking>? Bookings { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Bookings = BProc.GetBookings();
+    }
+
+}

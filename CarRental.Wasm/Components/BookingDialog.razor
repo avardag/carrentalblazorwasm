@@ -1,0 +1,63 @@
+@using CarRental.Shared.Interfaces
+@using CarRental.Shared.Entities
+@using CarRental.Business
+@inject ISnackbar Snackbar
+@inject BookingProcessor BProc
+
+<MudDialog Style="width: 500px">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Book a @Vehicle.Make @Vehicle.Model ?
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField Value="@Vehicle.Id.ToString()" Label="ID" ReadOnly="true"/>
+        <MudTextField Value="@Vehicle.RegistrationNumber" Label="Reg No" ReadOnly="true"/>
+        <MudTextField Value="@Vehicle.VehicleType" Label="Vehicle Type" ReadOnly="true"/>
+        <MudDivider/>
+        <MudSelect @bind-Value="_customer" Label="Customer" Placeholder="Select a customer" Disabled="@_loading" OpenIcon="@Icons.Material.Filled.Person3" AdornmentColor="Color.Primary">
+            @foreach (Customer item in Customers)
+            {
+                <MudSelectItem Value="@item">@item.FirstName @item.LastName</MudSelectItem>
+            }
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        @* <MudChip>@(_customer is null ? "Select customer" : _customer.FirstName)</MudChip> *@
+        <MudButton OnClick="Cancel" Disabled="@_loading">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="HandleBookingSubmit" Disabled="@_loading">Submit booking</MudButton>
+    </DialogActions>
+    
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public IVehicle Vehicle { get; set; } = new Vehicle();
+
+    private IEnumerable<Customer> Customers { get; set; } = new List<Customer>();
+    private Customer? _customer;
+    private bool _loading = false;
+    
+    protected override void OnInitialized()
+    {
+        Customers = BProc.GetCustomers();
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task HandleBookingSubmit()
+    {
+        _loading = true;
+        if (Vehicle == null || _customer == null) return;
+        await BProc.RentVehicle(Vehicle.Id, _customer.Id);
+        _loading = false;
+        Snackbar.Add($"{Vehicle.Make } {Vehicle.Model} successfully booked by {_customer?.FirstName}", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Vehicle.Id));
+    }
+}

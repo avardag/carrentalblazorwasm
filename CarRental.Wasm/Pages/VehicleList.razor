@@ -4,7 +4,10 @@
 @using CarRental.Business
 @using CarRental.Shared.Enums
 @using CarRental.Shared.Interfaces
+@using CarRentalWasm.Components
 @inject BookingProcessor BProc
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
 
 <PageTitle>Vehicles</PageTitle>
 <div class="d-flex justify-center mb-5">
@@ -68,7 +71,7 @@
         <MudTh>Model</MudTh>
         <MudTh>Odometer</MudTh>
         <MudTh>Type</MudTh>
-        <MudTh>Status</MudTh>
+        <MudTh>Status/Action</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.RegistrationNumber</MudTd>
@@ -76,9 +79,20 @@
         <MudTd DataLabel="Model">@context.Model</MudTd>
         <MudTd DataLabel="Odometer" HideSmall="@true">@context.Odometer</MudTd>
         <MudTd DataLabel="Type">@context.VehicleType</MudTd>
-        <MudTd DataLabel="Status" ><MudChip Variant="Variant.Filled" Color=@(context.AvailabilityStatus == VehicleAvailabilityStatus.Rented ? Color.Warning : Color.Default)>
-            @context.AvailabilityStatus
-        </MudChip> </MudTd>
+        <MudTd DataLabel="Status">
+            @if (context.AvailabilityStatus is VehicleAvailabilityStatus.Rented or VehicleAvailabilityStatus.Reserved)
+            {
+                <MudButton Variant="Variant.Filled"  Color="Color.Error" >
+                    @context.AvailabilityStatus
+                </MudButton>
+            }
+            else
+            {
+                <MudButton Variant="Variant.Filled"  Color="Color.Success" OnClick="@(() => AddBooking(context))">
+                    @context.AvailabilityStatus
+                </MudButton>  
+            }
+        </MudTd>
     </RowTemplate>
 </MudTable>
 
@@ -95,8 +109,25 @@
     private void HandleValidSubmit(EditContext context)
     {
         BProc.AddVehicle(_vehicle.RegistrationNumber, _vehicle.Make, _vehicle.Model, _vehicle.Odometer, _vehicle.CostPerKm, _vehicle.CostPerDay, _vehicleType);
+        Snackbar.Add("Vehicle added", Severity.Success);
         Vehicles = BProc.GetVehicles();
         _vehicle = new Car();//resets the form
         StateHasChanged();
+    }
+    async Task AddBooking(IVehicle vehicle)
+    {
+        var parameters = new DialogParameters<BookingDialog> { { x => x.Vehicle, vehicle } };
+        var options = new DialogOptions() { CloseButton = false, MaxWidth = MaxWidth.Medium };
+
+        var dialog = await DialogService.ShowAsync<BookingDialog>("Rent a vehicle", parameters, options);
+        
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+    //In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
+            // Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
+            // Servers.RemoveAll(item => item.Id == deletedServer);
+        }
     }
 }

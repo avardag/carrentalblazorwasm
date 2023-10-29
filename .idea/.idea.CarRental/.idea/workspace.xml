@@ -9,14 +9,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5199c2a6-0ae3-4e46-9916-b04f429b7da8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/CustomerList.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/BookingList.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarRental/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarRental/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Business/BookingProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Business/BookingProcessor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Customer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Vehicle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Vehicle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Enums/VehicleType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Enums/VehicleType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IPerson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IPerson.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Booking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Booking.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IBooking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IBooking.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/CustomerList.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/CustomerList.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/VehicleList.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/VehicleList.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Shared/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Shared/NavMenu.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +102,7 @@
       <workItem from="1697530584541" duration="6373000" />
       <workItem from="1697704556173" duration="47820000" />
       <workItem from="1698307218651" duration="8794000" />
-      <workItem from="1698518570258" duration="517000" />
+      <workItem from="1698518570258" duration="13395000" />
     </task>
     <servers />
   </component>
@@ -116,45 +115,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/CarRental.Data/MockDataService.cs</url>
-          <line>242</line>
-          <properties documentPath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" initialLine="242" containingFunctionPresentation="Method 'Add'">
-            <startOffsets>
-              <option value="8607" />
-            </startOffsets>
-            <endOffsets>
-              <option value="8640" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/CarRental.Data/MockDataService.cs</url>
-          <line>250</line>
-          <properties documentPath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" initialLine="250" containingFunctionPresentation="Method 'Add'">
-            <startOffsets>
-              <option value="8878" />
-            </startOffsets>
-            <endOffsets>
-              <option value="8912" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/CarRental.Data/MockDataService.cs</url>
-          <line>256</line>
-          <properties documentPath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" initialLine="256" containingFunctionPresentation="Method 'Add'">
-            <startOffsets>
-              <option value="9076" />
-            </startOffsets>
-            <endOffsets>
-              <option value="9109" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/CarRental.Data/IMockDataService.cs</url>
           <line>23</line>
