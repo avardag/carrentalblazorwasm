@@ -14,7 +14,7 @@ public interface IMockDataService
     List<T> Get<T>(Expression<Func<T, bool>>? predicate);
     T? Single<T>(Expression<Func<T, bool>>? expression);
     void Add<T>(T item);
-    IBooking RentVehicle(int vehicleId, int customerId);
+    Task<IBooking>  RentVehicle(int vehicleId, int customerId);
     Task<IBooking> ReturnVehicle(int vehicleId, int odometerReading);
     // Default Interface Methods
     public string[] VehicleStatusNames => System.Enum.GetNames(typeof (VehicleAvailabilityStatus));

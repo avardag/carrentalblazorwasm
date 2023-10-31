@@ -29,13 +29,13 @@
                                         @bind-Value="_vehicle.Model" For="@(() => _vehicle.Model)"/>
                       </MudItem>
                        <MudItem xs="12" sm="6" md="4" lg="3">
-                           <MudNumericField @bind-Value="_vehicle.Odometer" Label="Odometer" Variant="Variant.Text" Min="0" Max="1000000" For="@(() => _vehicle.Odometer)" />
+                           <MudNumericField @bind-Value="_vehicle.Odometer" Label="Odometer" Variant="Variant.Text" Min="10" Max="1000000000" For="@(() => _vehicle.Odometer)" />
                        </MudItem>
                        <MudItem xs="12" sm="6" md="4" lg="3">
-                           <MudNumericField @bind-Value="_vehicle.CostPerDay" Label="Cost per day" Variant="Variant.Text" Min="0" Max="3000" For="@(() => _vehicle.CostPerDay)" />
+                           <MudNumericField @bind-Value="_vehicle.CostPerDay" Label="Cost per day" Variant="Variant.Text" T="double" Min="1" Max="3000" For="@(() => _vehicle.CostPerDay)" />
                        </MudItem>
                        <MudItem xs="12" sm="6" md="4" lg="3">
-                           <MudNumericField @bind-Value="_vehicle.CostPerKm" Label="Cost per km" Variant="Variant.Text" Min="0" Max="300" For="@(() => _vehicle.CostPerKm)" />
+                           <MudNumericField @bind-Value="_vehicle.CostPerKm" Label="Cost per km" Variant="Variant.Text" T="double" Min="0.01" Max="100" Step="0.2" For="@(() => _vehicle.CostPerKm)" />
                        </MudItem>
                        <MudItem xs="12" sm="6" md="4" lg="3">
                            @* <MudSelect bind-Value="_vehicleType" Required T="string" Label="Vehicle Type" HelperText="Select one" AnchorOrigin="Origin.BottomCenter">

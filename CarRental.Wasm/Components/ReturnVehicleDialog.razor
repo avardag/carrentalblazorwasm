@@ -41,6 +41,12 @@
     private async Task HandleReturnSubmit()
     {
         _loading = true;
+        if (odometerReading <= Vehicle.Odometer)
+        {
+            Snackbar.Add($"{odometerReading} can not be less than reading before rent. Something fishy going on here.", Severity.Error);
+            _loading = false;
+            return;
+        }
         await BProc.ReturnVehicle(Vehicle.Id, odometerReading);
         _loading = false;
         Snackbar.Add($"{Vehicle.Make } {Vehicle.Model} successfully returned", Severity.Success);

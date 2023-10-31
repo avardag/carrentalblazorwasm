@@ -10,11 +10,12 @@ public class Booking:IBooking
     public DateTime ReturnDate { get; set; }
     public int VehicleId { get; set; }
     public int CustomerId { get; set; }
-    public decimal? TotalCost { get; private set; }//if total cost exists, then booking is closed
+    public double? TotalCost { get; private set; }//if total cost exists, then booking is closed
   
     public void CalculateTotalCost(Vehicle vehicle, int kmDriven)
     {
         TimeSpan rentalDuration = ReturnDate - PickupDate;
-        TotalCost = (decimal)rentalDuration.Days * vehicle.CostPerDay + kmDriven * vehicle.CostPerKm;
+        int days = rentalDuration.Days > 0 ? rentalDuration.Days : 1;
+        TotalCost = days * vehicle.CostPerDay + kmDriven * vehicle.CostPerKm;
     }
 }

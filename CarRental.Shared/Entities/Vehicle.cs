@@ -17,15 +17,15 @@ public class Vehicle:IVehicle
     [StringLength(24, ErrorMessage = "The {0} value cannot exceed {1} characters. ")] 
     public string Model { get; set; }
     [Required]
-    [Range(10, 1000000, 
+    [Range(10, 1000000000, 
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int Odometer { get; set; }
     [Required]
-    [Range(10, 3000)]
-    public decimal CostPerDay { get; set; }
+    [Range(1, 3000)]
+    public double CostPerDay { get; set; }
     [Required]
-    [Range(1, 30)]
-    public decimal CostPerKm { get; set; }
+    [Range(0.01, 100)]
+    public double CostPerKm { get; set; }
     [Required]
     public VehicleType VehicleType { get; set; }
     [Required]
@@ -34,7 +34,7 @@ public class Vehicle:IVehicle
     //not needed when using object initilizer syntax
     // public Vehicle(
     //     int id, string registrationNumber, string make, string model,
-    //     double odometer, decimal costPerDay, decimal costPerKm,
+    //     double odometer, double costPerDay, double costPerKm,
     //     VehicleType vehicleType, VehicleAvailabilityStatus availabilityStatus)
     // {
     //     Id = id;
@@ -63,6 +63,10 @@ public class Vehicle:IVehicle
 
     public void Return(int newOdometerReading)
     {
+        if(newOdometerReading <= Odometer)
+        {
+            throw  new Exception("Odometer reading cannot be less than or equal to the current odometer reading.");
+        }
         if (AvailabilityStatus == VehicleAvailabilityStatus.Rented)
         {
             AvailabilityStatus = VehicleAvailabilityStatus.Available;

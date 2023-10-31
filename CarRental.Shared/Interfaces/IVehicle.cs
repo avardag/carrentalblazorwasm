@@ -9,8 +9,8 @@ public interface IVehicle
     string Make { get; set; }
     string Model { get; set; }
     int Odometer { get; set; }
-    decimal CostPerDay { get; set; }
-    decimal CostPerKm { get; set; }
+    double CostPerDay { get; set; }
+    double CostPerKm { get; set; }
     VehicleType VehicleType { get; set; }
     VehicleAvailabilityStatus AvailabilityStatus { get; set; }
     void Rent();

@@ -1,6 +1,4 @@
 @page "/booking"
-@using CarRental.Shared.Entities
-@using MudBlazor.Extensions
 @using CarRental.Business
 @using CarRental.Shared.Interfaces
 @inject BookingProcessor BProc
@@ -21,7 +19,7 @@
         <MudTd DataLabel="SSN">@context.BookingDate</MudTd>
         <MudTd DataLabel="Name">@context.CustomerId</MudTd>
         <MudTd DataLabel="Last Name">@context.VehicleId</MudTd>
-        <MudTd DataLabel="Date Of birth" HideSmall="@true">@(context.TotalCost is null ? context.TotalCost : "N/A")</MudTd>
+        <MudTd DataLabel="Date Of birth" HideSmall="@true">@(context.TotalCost is null ? "N/A" : context.TotalCost)</MudTd>
         <MudTd DataLabel="Date Of birth" HideSmall="@true">
             @if (context.TotalCost is null)
             {

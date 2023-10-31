@@ -37,10 +37,10 @@ public class BookingProcessor
     }
     //TODO:implement
     // public IVehicle? GetVehicle(string regNo) { }
-    public async Task RentVehicle(int vehicleId, int customerId)
+    public async Task<IBooking> RentVehicle(int vehicleId, int customerId)
     { 
-        await Task.Delay(3000);
-        _db.RentVehicle(vehicleId, customerId);
+        var booking =  await _db.RentVehicle(vehicleId, customerId);
+        return booking;
     }
 
     public async Task<IBooking> ReturnVehicle(int vehicleId, int newOdometerReading)
@@ -50,7 +50,7 @@ public class BookingProcessor
     }
 
     public void AddVehicle(string registrationNumber, string make, string model, int
-        odometer, decimal costKm, decimal costDay, VehicleType type)
+        odometer, double costKm, double costDay, VehicleType type)
     {
             _db.Add<Vehicle>(new Vehicle
             {

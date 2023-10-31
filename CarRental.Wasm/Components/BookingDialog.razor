@@ -54,7 +54,12 @@
     private async Task HandleBookingSubmit()
     {
         _loading = true;
-        if (Vehicle == null || _customer == null) return;
+        if (Vehicle == null || _customer == null)
+        {
+            Snackbar.Add("Vehicle or customer not found", Severity.Error);
+            _loading = false;
+            return;
+        }
         await BProc.RentVehicle(Vehicle.Id, _customer.Id);
         _loading = false;
         Snackbar.Add($"{Vehicle.Make } {Vehicle.Model} successfully booked by {_customer?.FirstName}", Severity.Success);

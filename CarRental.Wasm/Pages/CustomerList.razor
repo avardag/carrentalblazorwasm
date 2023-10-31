@@ -30,7 +30,9 @@
                    </MudGrid>
                </MudCardContent>
                <MudCardActions>
-                   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add</MudButton>
+                   <MudButton Disabled="_loading" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">
+                       Add
+                   </MudButton>
                </MudCardActions>
            </MudCard>
            
@@ -62,7 +64,7 @@
 @code{
     private IEnumerable<Customer>? Customers { get; set; }
     private Customer _customer = new Customer();
-    bool _success;
+    bool _loading = false;
 
     protected override void OnInitialized()
     {
@@ -71,8 +73,9 @@
 
     private void HandleValidSubmit(EditContext context)
     {
-        _success = true;
+        _loading = true;
         BProc.AddCustomer(_customer);
+        _loading = false;
         Snackbar.Add("New custommer added", Severity.Success);
         Customers = BProc.GetCustomers();
         _customer = new Customer();//resets the form

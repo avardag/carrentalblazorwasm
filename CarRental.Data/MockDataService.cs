@@ -71,7 +71,7 @@ public class MockDataService : IMockDataService
             Model = "Corolla",
             Odometer = 12300,
             CostPerDay = 30,
-            CostPerKm = 0.4m,
+            CostPerKm = 0.4,
             VehicleType = VehicleType.Sedan,
             AvailabilityStatus = VehicleAvailabilityStatus.Available,
             NumberOfSeats = 4,
@@ -87,7 +87,7 @@ public class MockDataService : IMockDataService
             Model = "Civic",
             Odometer = 39000,
             CostPerDay = 24,
-            CostPerKm = 0.2m,
+            CostPerKm = 0.2,
             VehicleType = VehicleType.Coupe,
             AvailabilityStatus = VehicleAvailabilityStatus.Available,
             NumberOfSeats = 4,
@@ -103,7 +103,7 @@ public class MockDataService : IMockDataService
             Model = "X6",
             Odometer = 12000,
             CostPerDay = 70,
-            CostPerKm = 0.7m,
+            CostPerKm = 0.7,
             VehicleType = VehicleType.SUV,
             AvailabilityStatus = VehicleAvailabilityStatus.Available,
             NumberOfSeats = 4,
@@ -119,7 +119,7 @@ public class MockDataService : IMockDataService
             Model = "XC60",
             Odometer = 45000,
             CostPerDay = 54,
-            CostPerKm = 0.56m,
+            CostPerKm = 0.56,
             VehicleType = VehicleType.Combi,
             AvailabilityStatus = VehicleAvailabilityStatus.Available,
             NumberOfSeats = 4,
@@ -135,7 +135,7 @@ public class MockDataService : IMockDataService
             Model= "Sportster",
             Odometer = 5000,
             CostPerDay = 30,
-            CostPerKm = 0.3m,
+            CostPerKm = 0.3,
             VehicleType = VehicleType.Motorcycle,
             EngineSize = 1200,
             AvailabilityStatus = VehicleAvailabilityStatus.Available  
@@ -223,7 +223,11 @@ public class MockDataService : IMockDataService
    
     public T? Single<T>(Expression<Func<T, bool>>? expression = null)
     {
-        return  Get<T>(null).SingleOrDefault(expression?.Compile());
+        if (expression == null)
+        {
+            return Get<T>(null).SingleOrDefault();
+        }
+        return Get<T>(null).SingleOrDefault(expression.Compile());
         // return Get<T>().SingleOrDefault(expression);
         //or use GetList<>
         // then  do list.SingleOrDefault(predicate.Compile());
@@ -265,15 +269,14 @@ public class MockDataService : IMockDataService
         }
     }
 
-    public IBooking RentVehicle(int vehicleId, int customerId)
+    public async Task<IBooking>  RentVehicle(int vehicleId, int customerId)
     {
-        // Find the vehicle by id
         var vehicle = _vehicles.Find(v => v.Id == vehicleId);
 
         // Check if the vehicle is available
         if (vehicle != null && vehicle.AvailabilityStatus == VehicleAvailabilityStatus.Available)
         {
-            //new booking with the current date as the pickup date and a default return date of one week later
+            //new booking with the current date as the pickup date and a estimated return date of one week later
             var booking = new Booking
             {
                 BookingDate= DateTime.Now,
@@ -285,17 +288,16 @@ public class MockDataService : IMockDataService
 
             // Add the booking to the list
             Add(booking);
-
             // Rent the vehicle
             vehicle.Rent();
-
-            // Return the booking
-            return booking;
+            //fake API call delay
+            await Task.Delay(1500);
             
+            return booking;
         }
         else
         {
-            // Return null if the vehicle is not available or not found
+            // if the vehicle is not available or not found
             return null;
             
         }
