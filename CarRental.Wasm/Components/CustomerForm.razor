@@ -1,0 +1,59 @@
+@using CarRental.Shared.Entities
+@using CarRental.Business
+@inject BookingProcessor BProc
+@inject ISnackbar Snackbar
+
+<div class="d-flex justify-center mb-5">
+   <EditForm Model="_customer" OnValidSubmit="HandleValidSubmit">
+   <DataAnnotationsValidator/>
+           <MudCard Style="max-width: 600px;">
+               <MudCardContent>
+                   <MudGrid>
+                       <MudItem xs="12" sm="6" lg="3">
+                           <MudTextField Label="First name" HelperText="At least 2 chars"
+                                         @bind-Value="_customer.FirstName" For="@(() => _customer.FirstName)"/>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" lg="3">
+                           <MudTextField Label="Last name" HelperText="At least 2 chars"
+                                         @bind-Value="_customer.LastName" For="@(() => _customer.LastName)"/>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" lg="3">
+                          <MudTextField Label="SSN" HelperText="8 to 12 characters"
+                                        @bind-Value="_customer.SocialSecurityNumber" For="@(() => _customer.SocialSecurityNumber)"/>
+                      </MudItem>
+                       <MudItem xs="12" sm="6" lg="3">
+                           <MudDatePicker Label="Date of Birth" HelperText="mm/dd/yyyy" Editable="true" @bind-Date="_customer.DateOfBirth" Placeholder="Select Date"/>
+                       </MudItem>
+                   </MudGrid>
+               </MudCardContent>
+               <MudCardActions>
+                   <MudButton Disabled="_loading" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">
+                       Add
+                   </MudButton>
+               </MudCardActions>
+           </MudCard>
+           
+           <MudText Color="@Color.Error">
+               <ValidationSummary />
+           </MudText>
+   </EditForm> 
+</div>
+@code {
+    
+    private Customer _customer = new Customer();
+    bool _loading = false;
+    [Parameter]
+    public EventCallback RerenderList { get; set; }
+    
+    private void HandleValidSubmit(EditContext context)
+    {
+        _loading = true;
+        BProc.AddCustomer(_customer);
+        _loading = false;
+        Snackbar.Add("New customer added", Severity.Success);
+        // Customers = BProc.GetCustomers();
+        RerenderList.InvokeAsync();
+        _customer = new Customer();//resets the form
+        // StateHasChanged();
+    }
+}
