@@ -26,7 +26,17 @@
     <DialogActions>
         @* <MudChip>@(_customer is null ? "Select customer" : _customer.FirstName)</MudChip> *@
         <MudButton OnClick="Cancel" Disabled="@_loading">Cancel</MudButton>
-        <MudButton Color="Color.Error" OnClick="HandleBookingSubmit" Disabled="@_loading">Submit booking</MudButton>
+        <MudButton Color="Color.Error" OnClick="HandleBookingSubmit" Disabled="@_loading">
+            @if (_loading)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                <MudText Class="ms-2">Processing</MudText>
+            }
+            else
+            {
+                <MudText>Submit</MudText>
+            }
+        </MudButton>
     </DialogActions>
     
 </MudDialog>

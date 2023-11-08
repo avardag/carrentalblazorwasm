@@ -1,10 +1,12 @@
 using CarRental.Shared.Enums;
+using CarRental.Shared.Interfaces;
 
 namespace CarRental.Shared.Entities;
 
-public class Motorcycle:Vehicle
+public class Motorcycle:Vehicle, IMotorcycle
 {
-    public int EngineSize { get; set; }
+    
+    public int? EngineSize { get; set; }
     
     // public Motorcycle(
     //     int id, string registrationNumber, string make, string model,

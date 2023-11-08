@@ -15,4 +15,6 @@ builder.Services.AddMudServices();
 //services
 builder.Services.AddScoped<IMockDataService, MockDataService>();//TODO:comment later
 builder.Services.AddScoped<BookingProcessor>();
+//application state
+builder.Services.AddSingleton<ApplicationState>();
 await builder.Build().RunAsync();

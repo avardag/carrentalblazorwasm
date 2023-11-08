@@ -1,0 +1,134 @@
+
+@using CarRental.Shared.Entities
+@using CarRental.Shared.Enums
+@using CarRental.Shared.Interfaces
+@using CarRental.Business
+@using CarRentalWasm.Models
+@inject BookingProcessor BProc
+@using MudBlazor.Extensions
+@inject ISnackbar Snackbar
+@inject ApplicationState AppState
+
+<div class="d-flex justify-center mb-5">
+   <EditForm Model="Vehicle" OnValidSubmit="HandleValidSubmit">
+   <DataAnnotationsValidator/>
+       <MudCard class="px-16">
+           <MudCardContent>
+               <MudGrid>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                       <MudTextField Label="Registration Number" HelperText="Max 8 chars"
+                                     @bind-Value="Vehicle.RegistrationNumber" For="@(() => Vehicle.RegistrationNumber)"/>
+                   </MudItem>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                       <MudTextField Label="Make" HelperText="At least 2 chars"
+                                     @bind-Value="Vehicle.Make" For="@(() => Vehicle.Make)"/>
+                   </MudItem>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                      <MudTextField Label="Model" HelperText="2 to 24 characters"
+                                    @bind-Value="Vehicle.Model" For="@(() => Vehicle.Model)"/>
+                  </MudItem>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                       <MudNumericField @bind-Value="Vehicle.Odometer" Label="Odometer" Variant="Variant.Text" Min="10" Max="1000000000" For="@(() => Vehicle.Odometer)" />
+                   </MudItem>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                       <MudNumericField @bind-Value="Vehicle.CostPerDay" Label="Cost per day" Variant="Variant.Text" T="double" Min="1" Max="3000" For="@(() => Vehicle.CostPerDay)" />
+                   </MudItem>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                       <MudNumericField @bind-Value="Vehicle.CostPerKm" Label="Cost per km" Variant="Variant.Text" T="double" Min="0.01" Max="100" Step="0.2" For="@(() => Vehicle.CostPerKm)" />
+                   </MudItem>
+                   <MudItem xs="12" sm="6" md="4" lg="3">
+                       @* <MudSelect bind-Value="_vehicleType" Required T="string" Label="Vehicle Type" HelperText="Select one" AnchorOrigin="Origin.BottomCenter">
+                           @foreach (var type in BProc.VehicleTypeNames)
+                           {
+                               <MudSelectItem Value="@type" />
+                           }
+                       </MudSelect> *@
+                       <MudSelect @bind-Value="VehicleType" Label="Select vehicle type" HelperText="Type" AdornmentColor="Color.Primary" AnchorOrigin="Origin.BottomCenter" For="@(() => Vehicle.VehicleType)">
+                           @foreach (VehicleType vType in Enum.GetValues(typeof(VehicleType)))
+                           {
+                               if (!AppState.IsMotorcycle && vType == VehicleType.Motorcycle )
+                               {
+                                   continue;
+                               }
+                               if (AppState.IsMotorcycle && vType != VehicleType.Motorcycle)
+                               {
+                                   continue;
+                               }
+                               <MudSelectItem Value="@vType">@vType</MudSelectItem>
+                           }
+                       </MudSelect>
+                   </MudItem>
+                   @if (AppState.IsMotorcycle)
+                   {
+                      
+                        <MudItem xs="12" sm="6" md="4" lg="3">
+                            <MudNumericField @bind-Value="Vehicle.EngineSize" Label="Engine Size in CC" Variant="Variant.Text" Min="20" Max="2000" For="@(() => Vehicle.EngineSize)" />
+                        </MudItem> 
+                   }
+                   else
+                   {
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudNumericField @bind-Value="Vehicle.NumberOfSeats" Label="Number of Seats" Variant="Variant.Text" Min="1" Max="24" For="@(() => Vehicle.NumberOfSeats)" />
+                       </MudItem> 
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudNumericField @bind-Value="Vehicle.NumberOfDoors" Label="Number of Doors" Variant="Variant.Text" Min="1" Max="24" For="@(() => Vehicle.NumberOfDoors)" />
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudSelect @bind-Value="TransmissionType" Label="Select transmission" HelperText="Type" AdornmentColor="Color.Primary" AnchorOrigin="Origin.BottomCenter" For="@(() => Vehicle.TransmissionType)">
+                               @foreach (TransmissionType transmType in Enum.GetValues(typeof(TransmissionType)))
+                               {
+                                   <MudSelectItem Value="@transmType">@transmType</MudSelectItem>
+                               }
+                           </MudSelect>
+                       </MudItem>
+                       <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudSwitch @bind-Checked="@RearViewCamera" Label="Has rear view camera" />
+                       </MudItem>
+                        <MudItem xs="12" sm="6" md="4" lg="3">
+                           <MudSwitch @bind-Checked="@ParkAssist" Label="Has Park Assist"/>
+                        </MudItem>
+                   }
+                   
+               </MudGrid>
+           </MudCardContent>
+           <MudCardActions>
+               <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add</MudButton>
+           </MudCardActions>
+       </MudCard>
+
+       <MudText Color="@Color.Error">
+           <ValidationSummary />
+       </MudText>
+   </EditForm>
+</div>
+@code {
+    private VehicleAddFormModel Vehicle = new VehicleAddFormModel();
+
+    private VehicleType VehicleType { get; set; }
+    private TransmissionType TransmissionType { get; set; }
+    public bool RearViewCamera { get; set; } = false;
+    public bool ParkAssist { get; set; } = false;
+    [Parameter]
+    public EventCallback RerenderList { get; set; }
+
+    private void HandleValidSubmit(EditContext context)
+    {
+        BProc.AddVehicle(
+            AppState.IsMotorcycle,
+            Vehicle.RegistrationNumber,
+            Vehicle.Make,
+            Vehicle.Model,
+            Vehicle.Odometer,
+            Vehicle.CostPerKm,
+            Vehicle.CostPerDay,
+            VehicleType,
+            Vehicle.NumberOfDoors,
+            Vehicle.NumberOfSeats,
+            Vehicle.HasRearViewCamera,
+            Vehicle.HasParkAssist,
+            Vehicle.EngineSize);
+        Snackbar.Add("Vehicle added", Severity.Success);
+        RerenderList.InvokeAsync();
+        Vehicle = new VehicleAddFormModel();//resets the form
+    }
+}

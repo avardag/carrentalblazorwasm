@@ -1,14 +1,13 @@
 @page "/customer"
-@using CarRental.Shared.Entities
 @using MudBlazor.Extensions
 @using CarRental.Business
 @inject BookingProcessor BProc
 
 <PageTitle>Customers</PageTitle>
 
-<CustomerForm RerenderList="@OnInitialized"/>
+<CustomerForm RerenderList="@(()=>BProc.GetCustomers())"/>
 
-<MudTable Items="@Customers" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@(Customers == null)" LoadingProgressColor="Color.Info">
+<MudTable Items="@BProc.GetCustomers()" Hover="true" Breakpoint="Breakpoint.Sm" >
     <HeaderContent>
         <MudTh>Id</MudTh>
         <MudTh>SSN</MudTh>
@@ -25,11 +24,3 @@
     </RowTemplate>
 </MudTable>
 
-@code{
-    private IEnumerable<Customer>? Customers { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Customers = BProc.GetCustomers();
-    }
-}

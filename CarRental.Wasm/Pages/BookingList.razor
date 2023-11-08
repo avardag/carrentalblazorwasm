@@ -1,26 +1,28 @@
 @page "/booking"
 @using CarRental.Business
-@using CarRental.Shared.Interfaces
 @inject BookingProcessor BProc
 
 <PageTitle>Bookings</PageTitle>
 
-<MudTable Items="@Bookings" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@(Bookings == null)" LoadingProgressColor="Color.Info">
+<MudTable Items="@BProc.GetBookings()" Hover="true" Breakpoint="Breakpoint.Sm" >
     <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh>Booking Date</MudTh>
-        <MudTh>Customer</MudTh>
-        <MudTh>Vehicle Id</MudTh>
+        <MudTh>Booking date</MudTh>
+        <MudTh>Customer name</MudTh>
+        <MudTh>vehicle</MudTh>
+        <MudTh>Reg no</MudTh>
         <MudTh>Cost</MudTh>
         <MudTh>Status</MudTh>
+        <MudTh>
+            
+        </MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="SSN">@context.BookingDate</MudTd>
-        <MudTd DataLabel="Name">@context.CustomerId</MudTd>
-        <MudTd DataLabel="Last Name">@context.VehicleId</MudTd>
-        <MudTd DataLabel="Date Of birth" HideSmall="@true">@(context.TotalCost is null ? "N/A" : context.TotalCost)</MudTd>
-        <MudTd DataLabel="Date Of birth" HideSmall="@true">
+        <MudTd DataLabel="Id">@context.BookingDate.ToLongDateString()</MudTd>
+        <MudTd DataLabel="SSN">@context.Details.CustomerName</MudTd>
+        <MudTd DataLabel="Name">@context.Details.VehicleName</MudTd>
+        <MudTd DataLabel="Last Name">@context.Details.VehicleRegistrationNumber</MudTd>
+        <MudTd DataLabel="Cost" HideSmall="@true">@(context.TotalCost is null ? "N/A" : context.TotalCost)</MudTd>
+        <MudTd DataLabel="status" HideSmall="@true">
             @if (context.TotalCost is null)
             {
                 <MudChip Variant="Variant.Filled" Color=@(context.TotalCost is null? Color.Warning : Color.Default)>
@@ -34,15 +36,30 @@
                 </MudChip>
             }
         </MudTd>
+        <MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => BProc.ShowHideDetails(context.Id))">
+            @((context.Details.ShowDetails)? "Hide" : "Show") Details
+        </MudButton></MudTd>
     </RowTemplate>
+    <ChildRowContent>
+    		@if (context.Details.ShowDetails)
+    				{
+      <MudTr>
+       <td colspan="4">
+    	<MudCard Elevation="0" >
+    	 <MudCardHeader>
+    	  <CardHeaderContent>
+    	   <MudText Typo="Typo.body1"><strong>Details for booking with ID @context.Id</strong></MudText>
+    	  </CardHeaderContent>
+    	 </MudCardHeader>
+    	 <MudCardContent Class="pa-6">
+    	  <MudTextField Value="@context.BookingDate.ToString()" Label="Booking date/time" ReadOnly="true"/>
+    	  <MudTextField Value="@context.PickupDate.ToString()" Label="Pick up time" ReadOnly="true"/>
+    	  <MudTextField Value="@context.VehicleId" Label="Vehicle ID" ReadOnly="true"/>
+    	  <MudTextField Value="@context.CustomerId" Label="Customer ID" ReadOnly="true"/>
+    	 </MudCardContent>
+    	</MudCard>
+       </td>
+      </MudTr>
+    		}
+    	</ChildRowContent>
 </MudTable>
-
-@code{
-    private IEnumerable<IBooking>? Bookings { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Bookings = BProc.GetBookings();
-    }
-
-}

@@ -272,9 +272,10 @@ public class MockDataService : IMockDataService
     public async Task<IBooking>  RentVehicle(int vehicleId, int customerId)
     {
         var vehicle = _vehicles.Find(v => v.Id == vehicleId);
+        var customer = _customers.Find(c => c.Id == customerId);
 
         // Check if the vehicle is available
-        if (vehicle != null && vehicle.AvailabilityStatus == VehicleAvailabilityStatus.Available)
+        if (vehicle != null && vehicle.AvailabilityStatus == VehicleAvailabilityStatus.Available && customer !=null)
         {
             //new booking with the current date as the pickup date and a estimated return date of one week later
             var booking = new Booking
@@ -283,7 +284,8 @@ public class MockDataService : IMockDataService
                 PickupDate = DateTime.Now,
                 ReturnDate = DateTime.Now.AddDays(7),
                 VehicleId = vehicleId,
-                CustomerId = customerId
+                CustomerId = customerId,
+                Details = new BookingDetails($"{vehicle.Make} {vehicle.Model}",  $"{customer.FirstName} {customer.LastName}" , vehicle.RegistrationNumber, false)
             };
 
             // Add the booking to the list

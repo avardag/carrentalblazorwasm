@@ -11,6 +11,8 @@ public class Booking:IBooking
     public int VehicleId { get; set; }
     public int CustomerId { get; set; }
     public double? TotalCost { get; private set; }//if total cost exists, then booking is closed
+    //only for form, to be removed for razor Pages project
+    public BookingDetails Details { get; set; }
   
     public void CalculateTotalCost(Vehicle vehicle, int kmDriven)
     {
@@ -18,4 +20,5 @@ public class Booking:IBooking
         int days = rentalDuration.Days > 0 ? rentalDuration.Days : 1;
         TotalCost = days * vehicle.CostPerDay + kmDriven * vehicle.CostPerKm;
     }
+    
 }

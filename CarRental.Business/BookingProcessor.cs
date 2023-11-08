@@ -10,7 +10,7 @@ public class BookingProcessor
     private readonly IMockDataService _db;
     public BookingProcessor(IMockDataService db) => _db = db;
 
-    public IEnumerable<IBooking> GetBookings()
+    public IEnumerable<Booking> GetBookings()
     {
         return _db.Get<Booking>(null);
     }
@@ -49,10 +49,13 @@ public class BookingProcessor
             return booking;
     }
 
-    public void AddVehicle(string registrationNumber, string make, string model, int
-        odometer, double costKm, double costDay, VehicleType type)
+    public void AddVehicle(bool isMotorcycle, string registrationNumber, string make, string model, int
+        odometer, double costKm, double costDay, VehicleType type, int? numberOfDoors, int? numberOfSeats,
+        bool hasRearViewCamera, bool hasParkAssist, int? engineSize)
     {
-            _db.Add<Vehicle>(new Vehicle
+        if (isMotorcycle)
+        {
+            _db.Add<Vehicle>(new Motorcycle
             {
                 RegistrationNumber = registrationNumber,
                 Make = make,
@@ -61,14 +64,39 @@ public class BookingProcessor
                 CostPerDay = costDay,
                 CostPerKm = costKm,
                 AvailabilityStatus = VehicleAvailabilityStatus.Available,
-                VehicleType = type
+                VehicleType = VehicleType.Motorcycle,
+                EngineSize = engineSize
+            });
+        }
+        else
+        {
+            _db.Add<Vehicle>(new Car
+            {
+                RegistrationNumber = registrationNumber,
+                Make = make,
+                Model = model,
+                Odometer = odometer,
+                CostPerDay = costDay,
+                CostPerKm = costKm,
+                AvailabilityStatus = VehicleAvailabilityStatus.Available,
+                VehicleType = type,
+                NumberOfDoors = numberOfDoors,
+                NumberOfSeats = numberOfSeats,
+                HasParkAssist = hasParkAssist,
+                HasRearViewCamera = hasRearViewCamera
             }); 
-        
+        }
     }
 
     public void AddCustomer(Customer newCustomer)
     {
             _db.Add<Customer>(newCustomer);
+    }
+    //for bookings table
+    public void ShowHideDetails(int id)
+    {
+        var tmpBooking = this.GetBookings().First(f => f.Id == id);
+        tmpBooking.Details.ShowDetails = !tmpBooking.Details.ShowDetails;
     }
     // Calling Default Interface Methods
     public string[] VehicleStatusNames => _db.VehicleStatusNames;

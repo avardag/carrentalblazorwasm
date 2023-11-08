@@ -1,14 +1,15 @@
 using CarRental.Shared.Enums;
+using CarRental.Shared.Interfaces;
 
 namespace CarRental.Shared.Entities;
 
-public class Car: Vehicle
+public class Car:Vehicle, ICar
 {
-    public int NumberOfSeats { get; set; }
-    public int NumberOfDoors { get; set; }
+    public int? NumberOfSeats { get; set; }
+    public int? NumberOfDoors { get; set; }
     public TransmissionType TransmissionType { get; set; }
-    public bool? HasRearViewCamera { get; set; }
-    public bool? HasParkAssist { get; set; }
+    public bool HasRearViewCamera { get; set; }
+    public bool HasParkAssist { get; set; }
     
     //not needed when using object initilizer syntax
     // public Car(

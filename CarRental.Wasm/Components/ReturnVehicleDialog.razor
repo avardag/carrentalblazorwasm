@@ -43,7 +43,7 @@
         _loading = true;
         if (odometerReading <= Vehicle.Odometer)
         {
-            Snackbar.Add($"{odometerReading} can not be less than reading before rent. Something fishy going on here.", Severity.Error);
+            Snackbar.Add($"{odometerReading} can not be less than reading before rent. Fishy.", Severity.Error);
             _loading = false;
             return;
         }

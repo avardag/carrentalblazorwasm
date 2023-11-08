@@ -32,10 +32,6 @@
                    </MudButton>
                </MudCardActions>
            </MudCard>
-           
-           <MudText Color="@Color.Error">
-               <ValidationSummary />
-           </MudText>
    </EditForm> 
 </div>
 @code {
@@ -51,9 +47,7 @@
         BProc.AddCustomer(_customer);
         _loading = false;
         Snackbar.Add("New customer added", Severity.Success);
-        // Customers = BProc.GetCustomers();
         RerenderList.InvokeAsync();
         _customer = new Customer();//resets the form
-        // StateHasChanged();
     }
 }
