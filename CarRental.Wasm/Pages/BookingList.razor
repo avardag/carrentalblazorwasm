@@ -21,11 +21,11 @@
         <MudTd DataLabel="SSN">@context.Details.CustomerName</MudTd>
         <MudTd DataLabel="Name">@context.Details.VehicleName</MudTd>
         <MudTd DataLabel="Last Name">@context.Details.VehicleRegistrationNumber</MudTd>
-        <MudTd DataLabel="Cost" HideSmall="@true">@(context.TotalCost is null ? "N/A" : context.TotalCost)</MudTd>
+        <MudTd DataLabel="Cost" HideSmall="@true">@(context.TotalCost is null ? "---" : context.TotalCost)</MudTd>
         <MudTd DataLabel="status" HideSmall="@true">
             @if (context.TotalCost is null)
             {
-                <MudChip Variant="Variant.Filled" Color=@(context.TotalCost is null? Color.Warning : Color.Default)>
+                <MudChip Variant="Variant.Filled" Color=@(context.TotalCost is null? Color.Info : Color.Default)>
                     Open
                 </MudChip>
             }

@@ -20,7 +20,7 @@
 </MudTabs>
 @* <CarForm RerenderList="@(()=>BProc.GetVehicles())"/> *@
 
-<MudTable Items="@(BProc.GetVehicles())" T="IVehicle" Hover="true" Breakpoint="Breakpoint.Sm" >
+<MudTable Items="@(BProc.GetVehicles())" T="IVehicle" Breakpoint="Breakpoint.Sm" >
     <HeaderContent >
         <MudTh>REgNo</MudTh>
         <MudTh>Make</MudTh>
@@ -28,6 +28,7 @@
         <MudTh>Odometer</MudTh>
         <MudTh>Type</MudTh>
         <MudTh>Status/Action</MudTh>
+        <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.RegistrationNumber</MudTd>
@@ -49,6 +50,12 @@
                 </MudButton>  
             }
         </MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => OpenDetailsDialog(context))">
+                Details
+            </MudButton>
+        </MudTd>
+                          
     </RowTemplate>
-</MudTable>
+</MudTable>y
 

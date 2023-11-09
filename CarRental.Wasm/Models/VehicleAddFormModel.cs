@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using CarRental.Shared.Entities;
 using CarRental.Shared.Enums;
 using CarRental.Shared.Interfaces;
 
 namespace CarRentalWasm.Models;
 
-
+//needed only in form, to join car and motorcycle form, to avoid writing two forms
 public class VehicleAddFormModel : IVehicle, ICar, IMotorcycle
 {
     public int Id { get; set; }

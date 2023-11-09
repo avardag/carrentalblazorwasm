@@ -39,4 +39,17 @@ public partial class VehicleListBase: ComponentBase
             // Servers.RemoveAll(item => item.Id == deletedServer);
         }
     }
+    public async Task OpenDetailsDialog(IVehicle vehicle)
+    {
+        var parameters = new DialogParameters<VehicleDetailsDialog> { { x => x.Vehicle, vehicle } };
+        var dialog = await DialogService.ShowAsync<VehicleDetailsDialog>($"Details for {vehicle.RegistrationNumber}", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            //In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
+            // Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
+            // Servers.RemoveAll(item => item.Id == deletedServer);
+        }
+    }
 }

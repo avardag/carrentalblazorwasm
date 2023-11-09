@@ -9,26 +9,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5199c2a6-0ae3-4e46-9916-b04f429b7da8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/BookingDetails.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CarRental.Shared/Interfaces/ICar.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CarRental.Shared/Interfaces/IMotorcycle.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CarRental.Wasm/ApplicationState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CarRental.Wasm/Components/VehicleAddForm.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CarRental.Wasm/Models/VehicleAddFormModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CarRental.Shared/Extensions/PersonExtension.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CarRental.Shared/Extensions/VehicleExtension.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CarRental.Wasm/Components/VehicleDetailsDialog.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarRental/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarRental/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Business/BookingProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Business/BookingProcessor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Data/MockDataService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Booking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Booking.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Car.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Car.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Shared/Entities/Motorcycle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Shared/Entities/Motorcycle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Components/BookingDialog.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Components/BookingDialog.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Components/CustomerForm.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Components/CustomerForm.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Components/ReturnVehicleDialog.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Components/ReturnVehicleDialog.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/ApplicationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/ApplicationState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Models/VehicleAddFormModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Models/VehicleAddFormModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/BookingList.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/BookingList.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/CustomerList.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/CustomerList.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/VehicleList.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/VehicleList.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Pages/VehicleList.razor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Pages/VehicleList.razor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental.Wasm/Shared/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental.Wasm/Shared/MainLayout.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +110,8 @@
       <workItem from="1699344433817" duration="1367000" />
       <workItem from="1699345824436" duration="4942000" />
       <workItem from="1699465008728" duration="15879000" />
-      <workItem from="1699482015389" duration="3241000" />
+      <workItem from="1699482015389" duration="7539000" />
+      <workItem from="1699560231214" duration="2785000" />
     </task>
     <servers />
   </component>

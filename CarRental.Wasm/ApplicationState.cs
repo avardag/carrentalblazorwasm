@@ -4,7 +4,14 @@ namespace CarRentalWasm;
 
 public class ApplicationState
 {
+    /// <summary>
+    /// The State property for form select. Car or Motorcycle
+    /// </summary>
     public bool IsMotorcycle { get; set; } = false;
+    /// <summary>
+    /// The State property for form select. Car or Motorcycle
+    /// </summary>
+    public bool IsDarkMode { get; set; } = false;
     /// <summary>
     /// The State property with an initial value
     /// </summary>

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CarRental.Shared.Entities;
 using CarRental.Shared.Enums;
+using CarRental.Shared.Extensions;
 using CarRental.Shared.Interfaces;
 
 namespace CarRental.Data;
@@ -285,7 +286,7 @@ public class MockDataService : IMockDataService
                 ReturnDate = DateTime.Now.AddDays(7),
                 VehicleId = vehicleId,
                 CustomerId = customerId,
-                Details = new BookingDetails($"{vehicle.Make} {vehicle.Model}",  $"{customer.FirstName} {customer.LastName}" , vehicle.RegistrationNumber, false)
+                Details = new BookingDetails(vehicle.VehicleFullName(),  customer.FullName() , vehicle.RegistrationNumber, false)
             };
 
             // Add the booking to the list
