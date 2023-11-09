@@ -1,4 +1,5 @@
 using CarRental.Shared.Interfaces;
+using CarRental.Shared.Extensions;
 
 namespace CarRental.Shared.Entities;
 
@@ -14,11 +15,10 @@ public class Booking:IBooking
     //only for form, to be removed for razor Pages project
     public BookingDetails Details { get; set; }
   
-    public void CalculateTotalCost(Vehicle vehicle, int kmDriven)
+    public void CalculateTotalCost(IVehicle vehicle, int kmDriven)
     {
-        TimeSpan rentalDuration = ReturnDate - PickupDate;
-        int days = rentalDuration.Days > 0 ? rentalDuration.Days : 1;
+        // int days = this.RentalDurationInDays();
+        int days = PickupDate.RentalDurationInDays(ReturnDate);
         TotalCost = days * vehicle.CostPerDay + kmDriven * vehicle.CostPerKm;
     }
-    
 }

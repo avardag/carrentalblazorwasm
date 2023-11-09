@@ -55,7 +55,11 @@
     	  <MudTextField Value="@context.BookingDate.ToString()" Label="Booking date/time" ReadOnly="true"/>
     	  <MudTextField Value="@context.PickupDate.ToString()" Label="Pick up time" ReadOnly="true"/>
     	  <MudTextField Value="@context.VehicleId" Label="Vehicle ID" ReadOnly="true"/>
-    	  <MudTextField Value="@context.CustomerId" Label="Customer ID" ReadOnly="true"/>
+	      <MudTextField Value="@context.CustomerId" Label="Customer ID" ReadOnly="true"/>
+	      @if (context.TotalCost != null)
+	      {
+		      <MudTextField Value="@context.ReturnDate" Label="Return Date" ReadOnly="true"/>
+	      }
     	 </MudCardContent>
     	</MudCard>
        </td>

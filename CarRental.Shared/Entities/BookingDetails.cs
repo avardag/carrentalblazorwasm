@@ -1,5 +1,6 @@
 namespace CarRental.Shared.Entities;
 
+//needed only for table UI
 public class BookingDetails
 {
     public bool ShowDetails { get; set; }

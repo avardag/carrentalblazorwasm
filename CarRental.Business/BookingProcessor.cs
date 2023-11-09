@@ -25,9 +25,13 @@ public class BookingProcessor
         return _db.Single<Customer>(c => c.SocialSecurityNumber == ssn);
     }
 
-    public IEnumerable<IVehicle> GetVehicles(VehicleAvailabilityStatus status = default)
+    public IEnumerable<IVehicle> GetVehicles(VehicleAvailabilityStatus status)
     {
         // return _db.Get<Vehicle>(v => v.AvailabilityStatus == status);
+        return _db.Get<Vehicle>(null);
+    }
+    public IEnumerable<IVehicle> GetVehicles()
+    {
         return _db.Get<Vehicle>(null);
     }
 
@@ -35,8 +39,10 @@ public class BookingProcessor
     {
             return _db.Single<Vehicle>(v => v.Id == vehicleId); 
     }
-    //TODO:implement
-    // public IVehicle? GetVehicle(string regNo) { }
+    public IVehicle? GetVehicle(string regNo)
+    {
+        return _db.Single<Vehicle>(v => v.RegistrationNumber == regNo);
+    }
     public async Task<IBooking> RentVehicle(int vehicleId, int customerId)
     { 
         var booking =  await _db.RentVehicle(vehicleId, customerId);

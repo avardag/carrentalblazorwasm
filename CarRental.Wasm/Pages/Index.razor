@@ -6,66 +6,42 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-@if (_customers is null)
-{
-    <h1>Loading...</h1>
-}
-else
-{
-    <div>
-        <h1>Customers</h1>
-        @foreach (var c in _customers)
-        {
-            <p>@c.FirstName</p>
-        }
-    </div>
-}
-@if (_bookings is null)
-{
-    <h1>Loading...</h1>
-}
-else
-{
-    <div>
-        <h1>Bookings</h1>
-        @foreach (var b in _bookings)
-        {
-            <p>@b.Id</p>
-        }
-    </div>
-}
-@if (_vehicles is null)
-{
-    <h1>Loading...</h1>
-}
-else
-{
-    <div>
-        <h1>Vehicles</h1>
-        @foreach (var v in _vehicles)
-        {
-            <p>@v.Id</p>
-        }
-    </div>
-}
-
-Welcome to your new app.
-
-
-@code{
-    private List<Customer>  _customers { get; set; }
-    private List<Booking>  _bookings { get; set; }
-    private List<Vehicle> _vehicles { get; set; }
-
-    protected override void OnInitialized()
-    {
-        var allCustomers = Data.Get<Customer>(null);
-        _customers = allCustomers;
-        var allBookings = Data.Get<Booking>(null);
-        _bookings = allBookings;
-        var allVehicles = Data.Get<Vehicle>(null);
-        _vehicles = allVehicles;
-    }
-
-}
+<MudGrid Justify="Justify.Center" >
+    <MudItem >
+        <MudCard Style="max-width: 360px;">
+            <MudCardMedia Image="images/pexels-pixabay-164634.jpg" Height="200" />
+            <MudCardContent>
+                <MudText Typo="Typo.h5">Vehicles</MudText>
+                <MudText Typo="Typo.body2">Ut enim ad minim veniam, quis nostrud exercitation ullamco.</MudText>
+                <MudText Typo="Typo.body2">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="vehicle">Click for More</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem>
+<MudCard Style="max-width: 360px;">
+    <MudCardMedia Image="images/pexels-tobi-620335.jpg" Height="200" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">Customers</MudText>
+        <MudText Typo="Typo.body2">Excepteur sint occaecat cupidatat non proident.</MudText>
+        <MudText Typo="Typo.body2">Aquis nostrud exercitation ullamco, sunt in culpa qui officia deserunt mollit anim id est laborum.</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="customer">Click for More</MudButton>
+    </MudCardActions>
+</MudCard>    </MudItem>
+    <MudItem>
+<MudCard Style="max-width: 360px;">
+    <MudCardMedia Image="images/pexels-pixabay-164686.jpg" Height="200" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">Bookings</MudText>
+        <MudText Typo="Typo.body2">A consectetur adipiscing elit, sed do eiusmod tempor.</MudText>
+        <MudText Typo="Typo.body2">Sono laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="booking">Click for More</MudButton>
+    </MudCardActions>
+</MudCard>    </MudItem>
+</MudGrid>

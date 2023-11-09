@@ -12,5 +12,5 @@ public interface IBooking
     int CustomerId { get; }
     double? TotalCost { get; }
 
-    void CalculateTotalCost(Vehicle vehicle, int kmDriven);
+    void CalculateTotalCost(IVehicle vehicle, int kmDriven);
 }

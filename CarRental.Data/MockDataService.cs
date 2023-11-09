@@ -11,21 +11,21 @@ namespace CarRental.Data;
 public class MockDataService : IMockDataService
 {
     // Properties
-    public int NextVehicleId { get; private set; }
+    public int NextVehicleId { get; private set; }//private setters
     public int NextPersonId { get; private set; }
     public int NextBookingId { get; private set; }
 
     // Fields
     private readonly List<IBooking> _bookings;
     private readonly List<Customer> _customers;
-    private readonly List<Vehicle> _vehicles;
+    private readonly List<IVehicle> _vehicles;
 
     // Constructor
     public MockDataService()
     {
         _bookings = new List<IBooking>();
         _customers = new List<Customer>();
-        _vehicles = new List<Vehicle>();
+        _vehicles = new List<IVehicle>();
 
         NextVehicleId = 1;
         NextPersonId = 1;
@@ -63,7 +63,7 @@ public class MockDataService : IMockDataService
         });
         // Add some vehicles
         // _vehicles.Add(new Car(NextVehicleId++, "2344sdf", "Toyota", "Corolla", 2300, 50, 0.35m, VehicleType.Sedan, 4, 4, VehicleAvailabilityStatus.Available, TransmissionType.Automatic));
-        //using onject initilizer syntax instead
+        //object initilizer syntax instead
         _vehicles.Add(new Car
         {
             Id = NextVehicleId++,
